@@ -20,6 +20,9 @@ import {
 
 import "./styles.css";
 
+/* Chemin des fichiers publics (compatible GitHub Pages) */
+const asset = (path) => import.meta.env.BASE_URL + path.replace(/^\//, "");
+
 /* ================================================================
    DONNÉES — EXPÉRIENCES PROFESSIONNELLES
 ================================================================ */
@@ -358,7 +361,7 @@ function ProjectImage({ src, alt }) {
 
   return (
     <img
-      src={src}
+      src={asset(src)}
       alt={alt}
       onError={() => setError(true)}
       className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
@@ -1130,7 +1133,7 @@ function App() {
                 </a>
 
                 <a
-                  href="/Ahmed_KAMMOUN_CV.pdf"
+                  href={asset("/Ahmed_KAMMOUN_CV.pdf")}
                   download
                   className="cv-button inline-flex items-center justify-center gap-2 rounded-xl border px-6 py-3.5 font-medium transition"
                 >
@@ -1158,7 +1161,7 @@ function App() {
                 <div className="profile-frame relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl">
 
                   <img
-                    src="/profile.jpg"
+                    src={asset("/profile.jpg")}
                     alt="Ahmed Kammoun"
                     className="h-full w-full object-cover object-center"
                     onError={(e) => {
