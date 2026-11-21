@@ -854,6 +854,53 @@ html.dark .contact-card {
 }
 
 /* ================================================================
+   ANIMATION — IMPULSION DE SIGNAL PCB (SIGNAL PULSE FLOW)
+================================================================ */
+
+@keyframes pcbPulseFlow {
+  0% {
+    stroke-dashoffset: 1300;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+.pcb-pulse-signal-1 {
+  stroke-dasharray: 85 1100;
+  animation: pcbPulseFlow 6.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  filter: drop-shadow(0 0 5px rgba(59, 130, 246, 0.9));
+}
+
+.pcb-pulse-signal-2 {
+  stroke-dasharray: 65 1000;
+  animation: pcbPulseFlow 5.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  animation-delay: 3s;
+  filter: drop-shadow(0 0 5px rgba(96, 165, 250, 0.9));
+}
+
+@keyframes pcbViaGlow {
+  0%, 100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.pcb-via-pulse {
+  animation: pcbViaGlow 3.2s ease-in-out infinite;
+}
+
+/* ================================================================
    ACCESSIBILITY
 ================================================================ */
 

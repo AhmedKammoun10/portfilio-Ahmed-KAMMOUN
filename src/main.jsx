@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { motion, useReducedMotion, useScroll, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   ArrowUp,
@@ -365,8 +365,8 @@ function SpotlightCard({ children, className = "", as = "div", ...props }) {
 function PcbSideDecorations() {
   return (
     <div className="pointer-events-none fixed inset-0 z-0 hidden xl:block overflow-hidden">
-      {/* MARGE GAUCHE */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 2xl:w-44 opacity-25 dark:opacity-35 transition-opacity duration-500">
+      {/* MARGE GAUCHE STABLE AVEC SIGNAL LUMINEUX */}
+      <div className="absolute left-0 top-0 bottom-0 w-32 2xl:w-44 opacity-30 dark:opacity-40 transition-opacity duration-500">
         <svg
           className="h-full w-full text-blue-500 dark:text-blue-400"
           viewBox="0 0 160 1000"
@@ -374,7 +374,7 @@ function PcbSideDecorations() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* BUS DE PISTES 45° */}
+          {/* BUS DE PISTES 45° STATIQUE */}
           <path
             d="M 20 0 L 20 180 L 55 215 L 55 380 L 25 410 L 25 620 L 70 665 L 70 850 L 40 880 L 40 1000"
             stroke="currentColor"
@@ -398,9 +398,25 @@ function PcbSideDecorations() {
             strokeOpacity="0.5"
           />
 
+          {/* IMPULSIONS DE SIGNAUX LUMINEUX QUI VOYAGENT (SIGNAL PULSE FLOW) */}
+          <path
+            d="M 20 0 L 20 180 L 55 215 L 55 380 L 25 410 L 25 620 L 70 665 L 70 850 L 40 880 L 40 1000"
+            stroke="#60a5fa"
+            strokeWidth="2"
+            strokeLinecap="round"
+            className="pcb-pulse-signal-1"
+          />
+          <path
+            d="M 38 0 L 38 170 L 73 205 L 73 370 L 43 400 L 43 610 L 88 655 L 88 840 L 58 870 L 58 1000"
+            stroke="#38bdf8"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            className="pcb-pulse-signal-2"
+          />
+
           {/* VIAS (PASTILLES DE TRAVERSÉE MÉTALLISÉES) */}
           <circle cx="55" cy="215" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
-          <circle cx="55" cy="215" r="1.5" fill="currentColor" />
+          <circle cx="55" cy="215" r="1.5" fill="currentColor" className="pcb-via-pulse" />
 
           <circle cx="73" cy="370" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
           <circle cx="73" cy="370" r="1.5" fill="currentColor" />
@@ -409,7 +425,7 @@ function PcbSideDecorations() {
           <circle cx="125" cy="500" r="1.5" fill="currentColor" />
 
           <circle cx="70" cy="665" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
-          <circle cx="70" cy="665" r="1.5" fill="currentColor" />
+          <circle cx="70" cy="665" r="1.5" fill="currentColor" className="pcb-via-pulse" />
 
           <circle cx="88" cy="840" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
           <circle cx="88" cy="840" r="1.5" fill="currentColor" />
@@ -430,8 +446,8 @@ function PcbSideDecorations() {
         </svg>
       </div>
 
-      {/* MARGE DROITE */}
-      <div className="absolute right-0 top-0 bottom-0 w-32 2xl:w-44 opacity-25 dark:opacity-35 transition-opacity duration-500">
+      {/* MARGE DROITE STABLE AVEC SIGNAL LUMINEUX */}
+      <div className="absolute right-0 top-0 bottom-0 w-32 2xl:w-44 opacity-30 dark:opacity-40 transition-opacity duration-500">
         <svg
           className="h-full w-full text-blue-500 dark:text-blue-400"
           viewBox="0 0 160 1000"
@@ -439,7 +455,7 @@ function PcbSideDecorations() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* BUS DE PISTES 45° */}
+          {/* BUS DE PISTES 45° STATIQUE */}
           <path
             d="M 140 0 L 140 160 L 105 195 L 105 390 L 135 420 L 135 640 L 90 685 L 90 830 L 120 860 L 120 1000"
             stroke="currentColor"
@@ -463,9 +479,25 @@ function PcbSideDecorations() {
             strokeOpacity="0.5"
           />
 
+          {/* IMPULSIONS DE SIGNAUX LUMINEUX QUI VOYAGENT (SIGNAL PULSE FLOW) */}
+          <path
+            d="M 140 0 L 140 160 L 105 195 L 105 390 L 135 420 L 135 640 L 90 685 L 90 830 L 120 860 L 120 1000"
+            stroke="#60a5fa"
+            strokeWidth="2"
+            strokeLinecap="round"
+            className="pcb-pulse-signal-1"
+          />
+          <path
+            d="M 122 0 L 122 150 L 87 185 L 87 380 L 117 410 L 117 630 L 72 675 L 72 820 L 102 850 L 102 1000"
+            stroke="#38bdf8"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            className="pcb-pulse-signal-2"
+          />
+
           {/* VIAS */}
           <circle cx="105" cy="195" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
-          <circle cx="105" cy="195" r="1.5" fill="currentColor" />
+          <circle cx="105" cy="195" r="1.5" fill="currentColor" className="pcb-via-pulse" />
 
           <circle cx="87" cy="380" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
           <circle cx="87" cy="380" r="1.5" fill="currentColor" />
@@ -474,7 +506,7 @@ function PcbSideDecorations() {
           <circle cx="35" cy="520" r="1.5" fill="currentColor" />
 
           <circle cx="90" cy="685" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
-          <circle cx="90" cy="685" r="1.5" fill="currentColor" />
+          <circle cx="90" cy="685" r="1.5" fill="currentColor" className="pcb-via-pulse" />
 
           <circle cx="72" cy="820" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
           <circle cx="72" cy="820" r="1.5" fill="currentColor" />
