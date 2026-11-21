@@ -34,7 +34,7 @@ const professionalProjects = [
     type: "Stage PFE",
     title: "Intégration de FreeRTOS sur une plateforme embarquée",
     description:
-      "Intégration d’une architecture temps réel sur une plateforme Renesas RL78/G14 destinée à un combiné d’instruments.",
+      "Intégration d'une architecture temps réel sur une plateforme Renesas RL78/G14 destinée à un combiné d'instruments.",
     contribution: [
       "FreeRTOS — intégration sur RL78/G14",
       "Tâches temps réel — architecture multitâche",
@@ -62,7 +62,7 @@ const professionalProjects = [
     type: "Stage",
     title: "Robot de nettoyage autonome",
     description:
-      "Développement d’un prototype de robot autonome combinant navigation, vision par ordinateur et supervision.",
+      "Développement d'un prototype de robot autonome combinant navigation, vision par ordinateur et supervision.",
     contribution: [
       "Navigation autonome — déplacement du robot",
       "YOLOv8n — détection des déchets",
@@ -88,9 +88,9 @@ const professionalProjects = [
     type: "Stage",
     title: "Outil de diagnostic I²C sur ESP32-C6",
     description:
-      "Conception d’un outil de diagnostic embarqué pour analyser et tester plusieurs périphériques I²C.",
+      "Conception d'un outil de diagnostic embarqué pour analyser et tester plusieurs périphériques I²C.",
     contribution: [
-      "C++ — développement de l’outil",
+      "C++ — développement de l'outil",
       "I²C — communication avec les périphériques",
       "Détection — identification des périphériques",
       "TCA9548A — gestion des bus I²C",
@@ -116,12 +116,12 @@ const professionalProjects = [
 const academicProjects = [
   {
     category: "IoT · Machine Learning",
-    title: "Système d’Irrigation Intelligent",
+    title: "Système d'Irrigation Intelligent",
     description:
-      "Conception d’un système d’irrigation basé sur ESP32-C6, Random Forest, Flask et SQLite pour la supervision et la décision d’irrigation.",
+      "Conception d'un système d'irrigation basé sur ESP32-C6, Random Forest, Flask et SQLite pour la supervision et la décision d'irrigation.",
     contribution: [
       "ESP32-C6 — acquisition des données",
-      "Random Forest — décision d’irrigation",
+      "Random Forest — décision d'irrigation",
       "Flask — interface web de supervision",
       "SQLite — stockage des données",
       "Capteurs — acquisition environnementale",
@@ -143,12 +143,12 @@ const academicProjects = [
     category: "Edge AI · Computer Vision",
     title: "Analyse émotionnelle embarquée",
     description:
-      "Développement d’une solution d’analyse émotionnelle basée sur la vision par ordinateur et déployée sur Raspberry Pi 5.",
+      "Développement d'une solution d'analyse émotionnelle basée sur la vision par ordinateur et déployée sur Raspberry Pi 5.",
     contribution: [
       "CNN — étude des architectures",
       "Images — prétraitement des données",
       "TensorFlow — entraînement du modèle",
-      "OpenCV — traitement d’images",
+      "OpenCV — traitement d'images",
       "Modèle — évaluation des performances",
       "Raspberry Pi 5 — déploiement embarqué",
     ],
@@ -167,11 +167,11 @@ const academicProjects = [
     category: "Embedded Linux · Virtualisation",
     title: "Validation de Logiciel Embarqué en Environnement Virtuel",
     description:
-      "Mise en place d’un environnement QEMU pour simuler un Raspberry Pi 3B et valider des applications embarquées.",
+      "Mise en place d'un environnement QEMU pour simuler un Raspberry Pi 3B et valider des applications embarquées.",
     contribution: [
       "QEMU — simulation du Raspberry Pi 3B",
-      "Linux embarqué — configuration de l’environnement",
-      "C — compilation d’applications",
+      "Linux embarqué — configuration de l'environnement",
+      "C — compilation d'applications",
       "GDB — débogage des applications",
       "Tests — validation du logiciel",
       "Bash — automatisation des tâches",
@@ -300,13 +300,13 @@ function Reveal({ children, delay = 0, className = "" }) {
   return (
     <motion.div
       className={className}
-      initial={reduce ? false : { opacity: 0, y: 24 }}
+      initial={reduce ? false : { opacity: 0, y: 32 }}
       whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.12 }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{
-        duration: 0.65,
+        duration: 0.7,
         delay: reduce ? 0 : delay,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.16, 1, 0.3, 1],
       }}
     >
       {children}
@@ -321,17 +321,17 @@ function Reveal({ children, delay = 0, className = "" }) {
 function SectionTitle({ eyebrow, title, description }) {
   return (
     <Reveal>
-      <div className="section-title mb-14 max-w-4xl">
-        <p className="section-eyebrow mb-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+      <div className="section-title mb-16 max-w-3xl">
+        <p className="section-eyebrow mb-3 text-xs font-bold uppercase tracking-[0.2em]">
           {eyebrow}
         </p>
 
-        <h2 className="section-heading text-xl font-semibold leading-tight tracking-tight sm:text-2xl lg:text-3xl">
+        <h2 className="section-heading text-3xl font-extrabold leading-tight tracking-[-0.025em] sm:text-4xl lg:text-5xl">
           {title}
         </h2>
 
         {description && (
-          <p className="section-description mt-4 max-w-2xl text-sm leading-6 sm:text-base">
+          <p className="section-description mt-5 max-w-2xl text-base leading-7 sm:text-lg">
             {description}
           </p>
         )}
@@ -381,7 +381,7 @@ function ProfessionalCard({ project, index, language }) {
 
   return (
     <Reveal delay={index * 0.08} className="h-full">
-      <article className="professional-card group grid h-full overflow-hidden rounded-[2rem] border shadow-sm transition duration-500 hover:shadow-2xl lg:grid-cols-[0.95fr_1.05fr]">
+      <article className="professional-card group grid h-full overflow-hidden rounded-2xl border shadow-sm transition duration-500 hover:shadow-2xl lg:grid-cols-[0.95fr_1.05fr]">
 
         <div className="relative min-h-[320px] overflow-hidden lg:min-h-full">
           <ProjectImage
@@ -410,7 +410,7 @@ function ProfessionalCard({ project, index, language }) {
 
         <div className="professional-content flex min-h-full flex-col p-8 sm:p-10 lg:p-12">
 
-          <h3 className="card-heading text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+          <h3 className="card-heading text-2xl font-bold leading-tight tracking-[-0.02em] sm:text-3xl">
             {translation.title}
           </h3>
 
@@ -505,7 +505,7 @@ function AcademicCard({ project, index, language }) {
 
   return (
     <Reveal delay={index * 0.08} className="h-full">
-      <article className="academic-card group flex h-full flex-col overflow-hidden rounded-[2rem] text-white shadow-xl transition duration-500 hover:shadow-2xl">
+      <article className="academic-card group flex h-full flex-col overflow-hidden rounded-2xl text-white shadow-xl transition duration-500 hover:shadow-2xl">
 
         <div className="relative h-[260px] shrink-0 overflow-hidden sm:h-[280px]">
           <ProjectImage
@@ -665,7 +665,7 @@ function App() {
         subtitle: "Ingénieur en systèmes embarqués",
         about: "À propos",
         description:
-          "Jeune ingénieur en systèmes embarqués, diplômé de l’ENET’Com, spécialisé dans le développement de solutions électroniques et logicielles embarquées. Je m’intéresse particulièrement aux systèmes temps réel, à l’IoT, à Linux embarqué, à l’automobile et à l’intelligence artificielle embarquée.",
+          "Jeune ingénieur en systèmes embarqués, diplômé de l'ENET'Com, spécialisé dans le développement de solutions électroniques et logicielles embarquées. Je m'intéresse particulièrement aux systèmes temps réel, à l'IoT, à Linux embarqué, à l'automobile et à l'intelligence artificielle embarquée.",
         discover: "Découvrir mon parcours",
         cv: "Télécharger le CV",
         location: "Sfax, Tunisie",
@@ -675,14 +675,14 @@ function App() {
         eyebrow: "Expérience professionnelle",
         title: "Des expériences industrielles concrètes",
         description:
-          "Mes expériences en entreprise m’ont permis de travailler sur des systèmes embarqués réels, de la conception logicielle à la validation.",
+          "Mes expériences en entreprise m'ont permis de travailler sur des systèmes embarqués réels, de la conception logicielle à la validation.",
       },
 
       projects: {
         eyebrow: "Projets académiques",
         title: "Explorer, concevoir, expérimenter",
         description:
-          "Des projets développés à l’ENET’Com autour de l’IoT, de l’intelligence artificielle, du logiciel embarqué et de Linux embarqué.",
+          "Des projets développés à l'ENET'Com autour de l'IoT, de l'intelligence artificielle, du logiciel embarqué et de Linux embarqué.",
       },
 
       skills: {
@@ -742,7 +742,7 @@ function App() {
           {
             title: "Linux embarqué & IA",
             description:
-              "Environnements Linux et technologies de vision par ordinateur et d’intelligence artificielle embarquée.",
+              "Environnements Linux et technologies de vision par ordinateur et d'intelligence artificielle embarquée.",
             items: [
               "Linux embarqué",
               "OpenCV",
@@ -761,10 +761,10 @@ function App() {
           "Mon parcours académique en électronique, communication et systèmes embarqués.",
 
         engineering:
-          "Diplôme d’Ingénieur en Génie des Systèmes Électroniques de Communication",
+          "Diplôme d'Ingénieur en Génie des Systèmes Électroniques de Communication",
 
         engineeringSchool:
-          "École Nationale d’Électronique et des Télécommunications de Sfax — ENET’Com",
+          "École Nationale d'Électronique et des Télécommunications de Sfax — ENET'Com",
 
         engineeringDescription:
           "Formation orientée systèmes électroniques, systèmes embarqués, communication, programmation et technologies IoT.",
@@ -773,17 +773,17 @@ function App() {
           "Cycle préparatoire Physique-Technique",
 
         preparatorySchool:
-          "Institut Préparatoire aux Études d’Ingénieurs de Sfax — IPEIS",
+          "Institut Préparatoire aux Études d'Ingénieurs de Sfax — IPEIS",
 
         preparatoryDescription:
-          "Formation scientifique intensive en mathématiques, physique, informatique et sciences de l’ingénieur.",
+          "Formation scientifique intensive en mathématiques, physique, informatique et sciences de l'ingénieur.",
       },
 
       contact: {
         eyebrow: "Contact",
         title: "Construisons quelque chose de solide",
         description:
-          "Je suis ouvert aux opportunités dans les systèmes embarqués, le logiciel automobile, Linux embarqué, l’IoT et l’intelligence artificielle embarquée.",
+          "Je suis ouvert aux opportunités dans les systèmes embarqués, le logiciel automobile, Linux embarqué, l'IoT et l'intelligence artificielle embarquée.",
       },
 
       footer:
@@ -803,7 +803,7 @@ function App() {
         subtitle: "Embedded Systems Engineer",
         about: "About",
         description:
-          "Young embedded systems engineer, graduated from ENET’Com, specialized in the development of embedded electronic and software solutions. Particularly interested in real-time systems, IoT, embedded Linux, automotive systems and embedded artificial intelligence.",
+          "Young embedded systems engineer, graduated from ENET'Com, specialized in the development of embedded electronic and software solutions. Particularly interested in real-time systems, IoT, embedded Linux, automotive systems and embedded artificial intelligence.",
         discover: "Explore my background",
         cv: "Download CV",
         location: "Sfax, Tunisia",
@@ -820,7 +820,7 @@ function App() {
         eyebrow: "Academic Projects",
         title: "Explore, build, experiment",
         description:
-          "Projects developed at ENET’Com around IoT, artificial intelligence, embedded software and embedded Linux.",
+          "Projects developed at ENET'Com around IoT, artificial intelligence, embedded software and embedded Linux.",
       },
 
       skills: {
@@ -902,7 +902,7 @@ function App() {
           "Engineering Degree in Electronic Communication Systems Engineering",
 
         engineeringSchool:
-          "National School of Electronics and Telecommunications of Sfax — ENET’Com",
+          "National School of Electronics and Telecommunications of Sfax — ENET'Com",
 
         engineeringDescription:
           "Education focused on electronic systems, embedded systems, communication, programming and IoT technologies.",
@@ -919,7 +919,7 @@ function App() {
 
       contact: {
         eyebrow: "Contact",
-        title: "Let’s build something solid",
+        title: "Let's build something solid",
         description:
           "I am open to opportunities in embedded systems, automotive software, embedded Linux, IoT and embedded artificial intelligence.",
       },
@@ -957,7 +957,7 @@ function App() {
             href="#accueil"
             className="flex items-center gap-3"
           >
-            <span className="logo-mark grid h-9 w-9 place-items-center rounded-xl text-xs font-bold">
+            <span className="logo-mark grid h-9 w-9 place-items-center rounded-lg text-xs font-bold">
               AK
             </span>
 
@@ -966,7 +966,7 @@ function App() {
             </span>
           </a>
 
-          <div className="hidden items-center gap-7 text-sm md:flex">
+          <div className="hidden items-center gap-8 text-sm font-medium md:flex">
 
             <a href="#experience" className="nav-link">
               {t.nav.experience}
@@ -1064,7 +1064,7 @@ function App() {
 
         <section
           id="accueil"
-          className="hero relative overflow-hidden pb-24 pt-36 sm:pt-44"
+          className="hero relative overflow-hidden pb-28 pt-40 sm:pt-48"
         >
 
           <div className="hero-grid pointer-events-none absolute inset-0" />
@@ -1073,7 +1073,7 @@ function App() {
 
             <Reveal>
 
-              <h1 className="hero-name text-5xl font-semibold leading-[0.98] tracking-[-0.04em] sm:text-7xl lg:text-8xl">
+              <h1 className="hero-name text-5xl font-extrabold leading-[0.95] tracking-[-0.04em] sm:text-7xl lg:text-[5.5rem]">
                 Ahmed
                 <br />
 
@@ -1082,7 +1082,7 @@ function App() {
                 </span>
               </h1>
 
-              <h2 className="hero-subtitle mt-7 text-xl font-semibold tracking-tight sm:text-2xl">
+              <h2 className="hero-subtitle mt-6 text-lg font-medium tracking-tight sm:text-xl lg:text-2xl">
                 {t.hero.subtitle}
               </h2>
 
@@ -1096,7 +1096,7 @@ function App() {
                   </span>
                 </div>
 
-                <p className="hero-description text-lg leading-8 sm:text-xl">
+                <p className="hero-description text-base leading-7 sm:text-lg sm:leading-8">
                   {t.hero.description}
                 </p>
 
@@ -1114,7 +1114,7 @@ function App() {
                 ].map((item) => (
                   <span
                     key={item}
-                    className="hero-pill rounded-full border px-4 py-2 text-xs font-medium transition"
+                    className="hero-pill rounded-lg border px-3.5 py-2 text-xs font-medium transition"
                   >
                     {item}
                   </span>
@@ -1122,11 +1122,11 @@ function App() {
 
               </div>
 
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:gap-4">
 
                 <a
                   href="#experience"
-                  className="glow-button inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-medium"
+                  className="glow-button inline-flex items-center justify-center gap-2.5 rounded-xl px-7 py-3.5 text-sm font-semibold"
                 >
                   {t.hero.discover}
                   <ArrowRight size={18} />
@@ -1135,7 +1135,7 @@ function App() {
                 <a
                   href={asset("/Ahmed_KAMMOUN_CV.pdf")}
                   download
-                  className="cv-button inline-flex items-center justify-center gap-2 rounded-xl border px-6 py-3.5 font-medium transition"
+                  className="cv-button inline-flex items-center justify-center gap-2.5 rounded-xl border px-7 py-3.5 text-sm font-semibold transition"
                 >
                   {t.hero.cv}
                   <Download size={18} />
@@ -1156,9 +1156,9 @@ function App() {
 
               <div className="relative mx-auto w-full max-w-md">
 
-                <div className="absolute -inset-4 rounded-[2.5rem] bg-accent/10 blur-2xl" />
+                <div className="absolute -inset-6 rounded-[2rem] bg-accent/8 blur-3xl" />
 
-                <div className="profile-frame relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-2xl">
+                <div className="profile-frame relative aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl">
 
                   <img
                     src={asset("/profile.jpg")}
@@ -1185,7 +1185,7 @@ function App() {
 
         <section
           id="experience"
-          className="experience-section py-28"
+          className="experience-section py-32"
         >
 
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -1219,7 +1219,7 @@ function App() {
 
         <section
           id="projets"
-          className="projects-section py-28"
+          className="projects-section py-32"
         >
 
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -1253,7 +1253,7 @@ function App() {
 
         <section
           id="competences"
-          className="skills-section border-t py-28"
+          className="skills-section py-32"
         >
 
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -1277,13 +1277,13 @@ function App() {
                     className="h-full"
                   >
 
-                    <article className="skill-card flex h-full flex-col rounded-3xl border p-6 transition duration-500 hover:border-accent hover:shadow-xl">
+                    <article className="skill-card flex h-full flex-col rounded-2xl border p-7 transition duration-500">
 
                       {/* ICÔNE + NUMÉRO */}
 
                       <div className="flex items-start justify-between">
 
-                        <div className="skill-icon grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-slate-950 text-white shadow-sm">
+                        <div className="skill-icon grid h-11 w-11 shrink-0 place-items-center rounded-xl shadow-sm">
                           <Icon
                             size={21}
                             strokeWidth={2}
@@ -1351,7 +1351,7 @@ function App() {
 
         <section
           id="formation"
-          className="education-section py-28"
+          className="education-section py-32"
         >
 
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -1366,7 +1366,7 @@ function App() {
 
               <Reveal className="h-full">
 
-                <div className="education-card flex h-full flex-col rounded-3xl border p-8 transition duration-500">
+                <div className="education-card flex h-full flex-col rounded-2xl border p-8 sm:p-10 transition duration-500">
 
                   <div className="education-year text-xs font-semibold uppercase tracking-[0.2em]">
                     2023 — 2026
@@ -1393,7 +1393,7 @@ function App() {
                 className="h-full"
               >
 
-                <div className="education-card flex h-full flex-col rounded-3xl border p-8 transition duration-500">
+                <div className="education-card flex h-full flex-col rounded-2xl border p-8 sm:p-10 transition duration-500">
 
                   <div className="education-year text-xs font-semibold uppercase tracking-[0.2em]">
                     2021 — 2023
@@ -1427,12 +1427,12 @@ function App() {
 
         <section
           id="contact"
-          className="contact-section px-6 py-28 lg:px-10"
+          className="contact-section px-6 py-32 lg:px-10"
         >
 
           <Reveal>
 
-            <div className="contact-card mx-auto grid max-w-7xl gap-12 overflow-hidden rounded-[2.5rem] p-10 text-white sm:p-14 lg:grid-cols-[1.1fr_.9fr]">
+            <div className="contact-card mx-auto grid max-w-7xl gap-12 overflow-hidden rounded-2xl p-10 text-white sm:p-14 lg:grid-cols-[1.1fr_.9fr]">
 
               <div>
 
@@ -1454,7 +1454,7 @@ function App() {
 
                 <a
                   href="mailto:ahmedkamoun2002@gmail.com"
-                  className="contact-link flex items-center gap-4 rounded-2xl border px-5 py-4 text-sm transition"
+                  className="contact-link flex items-center gap-4 rounded-xl border px-5 py-4 text-sm transition"
                 >
                   <Mail
                     size={19}
@@ -1473,7 +1473,7 @@ function App() {
 
                 <a
                   href="tel:+21656162611"
-                  className="contact-link flex items-center gap-4 rounded-2xl border px-5 py-4 text-sm transition"
+                  className="contact-link flex items-center gap-4 rounded-xl border px-5 py-4 text-sm transition"
                 >
                   <Phone
                     size={19}
@@ -1489,7 +1489,7 @@ function App() {
                   href="https://www.linkedin.com/in/ahmed-kammoun-b79196308"
                   target="_blank"
                   rel="noreferrer"
-                  className="contact-link flex items-center gap-4 rounded-2xl border px-5 py-4 text-sm transition"
+                  className="contact-link flex items-center gap-4 rounded-xl border px-5 py-4 text-sm transition"
                 >
                   <Linkedin
                     size={19}
@@ -1510,7 +1510,7 @@ function App() {
                   href="https://github.com/AhmedKammoun10"
                   target="_blank"
                   rel="noreferrer"
-                  className="contact-link flex items-center gap-4 rounded-2xl border px-5 py-4 text-sm transition"
+                  className="contact-link flex items-center gap-4 rounded-xl border px-5 py-4 text-sm transition"
                 >
                   <Github
                     size={19}
@@ -1541,7 +1541,7 @@ function App() {
           FOOTER
       ========================================================== */}
 
-      <footer className="footer border-t px-6 py-8 text-center text-xs">
+      <footer className="footer border-t px-6 py-10 text-center text-xs tracking-wide">
         {t.footer}
       </footer>
 
