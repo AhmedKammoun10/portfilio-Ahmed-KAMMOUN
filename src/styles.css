@@ -102,6 +102,11 @@ body {
   transition: var(--transition-theme);
 }
 
+.font-mono,
+.tech-mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -279,30 +284,58 @@ html.dark .language-active {
 }
 
 .hero-grid {
-  opacity: 0.5;
+  opacity: 1;
 
   background-image:
+    /* Lueur d'ambiance diffuse derrière le hero */
+    radial-gradient(
+      ellipse 65% 55% at 50% 30%,
+      rgba(59, 130, 246, 0.12) 0%,
+      rgba(59, 130, 246, 0.03) 50%,
+      transparent 80%
+    ),
+    /* Lignes de repère CAO fines */
     linear-gradient(
-      rgba(59, 130, 246, 0.06) 1px,
+      rgba(59, 130, 246, 0.04) 1px,
       transparent 1px
     ),
     linear-gradient(
       90deg,
-      rgba(59, 130, 246, 0.06) 1px,
+      rgba(59, 130, 246, 0.04) 1px,
       transparent 1px
-    );
+    ),
+    /* Micro-croix (+) aux intersections (style Altium / CAO) */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' fill='none'%3E%3Cpath stroke='%233b82f6' stroke-opacity='0.22' stroke-width='1.2' d='M22 18v8M18 22h8'/%3E%3Ccircle cx='22' cy='22' r='0.6' fill='%233b82f6' fill-opacity='0.35'/%3E%3C/svg%3E");
 
-  background-size: 48px 48px;
+  background-size: 100% 100%, 44px 44px, 44px 44px, 44px 44px;
 
   mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 40%,
-    black 10%,
-    transparent 70%
+    ellipse 85% 75% at 50% 35%,
+    black 30%,
+    transparent 85%
   );
 }
 
 html.dark .hero-grid {
-  opacity: 0.25;
+  opacity: 0.9;
+
+  background-image:
+    radial-gradient(
+      ellipse 65% 55% at 50% 30%,
+      rgba(96, 165, 250, 0.14) 0%,
+      rgba(96, 165, 250, 0.03) 50%,
+      transparent 80%
+    ),
+    linear-gradient(
+      rgba(96, 165, 250, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(96, 165, 250, 0.04) 1px,
+      transparent 1px
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' fill='none'%3E%3Cpath stroke='%2360a5fa' stroke-opacity='0.25' stroke-width='1.2' d='M22 18v8M18 22h8'/%3E%3Ccircle cx='22' cy='22' r='0.6' fill='%2360a5fa' fill-opacity='0.4'/%3E%3C/svg%3E");
 }
 
 .hero-name {
@@ -347,6 +380,7 @@ html.dark .hero-grid {
 .profile-frame {
   background: var(--bg-card);
   border: 1px solid var(--border);
+  aspect-ratio: 2194 / 1904;
 }
 
 /* ================================================================
@@ -429,12 +463,25 @@ html.dark .glow-button:hover {
 
 .experience-section,
 .skills-section {
-  background: var(--bg-secondary);
+  background-color: var(--bg-secondary);
+  background-image: radial-gradient(
+    rgba(59, 130, 246, 0.04) 1px,
+    transparent 1px
+  );
+  background-size: 32px 32px;
   border-color: var(--border-soft);
 
   transition:
     background-color 0.35s ease,
     border-color 0.35s ease;
+}
+
+html.dark .experience-section,
+html.dark .skills-section {
+  background-image: radial-gradient(
+    rgba(96, 165, 250, 0.04) 1px,
+    transparent 1px
+  );
 }
 
 .projects-section,

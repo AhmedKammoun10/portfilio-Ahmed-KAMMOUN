@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
+  ArrowUp,
   Download,
   Github,
   Linkedin,
@@ -16,6 +17,8 @@ import {
   Sun,
   Moon,
   Radio,
+  Check,
+  Copy,
 } from "lucide-react";
 
 import "./styles.css";
@@ -315,23 +318,71 @@ function Reveal({ children, delay = 0, className = "" }) {
 }
 
 /* ================================================================
+   CARTE SPOTLIGHT (Rétroéclairage dynamique au curseur)
+================================================================ */
+
+function SpotlightCard({ children, className = "", as = "div", ...props }) {
+  const cardRef = React.useRef(null);
+  const [mousePos, setMousePos] = React.useState({ x: -1000, y: -1000 });
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    setMousePos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
+  const Component = as;
+
+  return (
+    <Component
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`relative overflow-hidden ${className}`}
+      {...props}
+    >
+      <div
+        className="pointer-events-none absolute -inset-px transition-opacity duration-300 z-10"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(450px circle at ${mousePos.x}px ${mousePos.y}px, rgba(59, 130, 246, 0.12), transparent 75%)`,
+        }}
+      />
+      {children}
+    </Component>
+  );
+}
+
+/* ================================================================
    TITRE DE SECTION
 ================================================================ */
 
 function SectionTitle({ eyebrow, title, description }) {
   return (
     <Reveal>
-      <div className="section-title mb-16 max-w-3xl">
-        <p className="section-eyebrow mb-3 text-xs font-bold uppercase tracking-[0.2em]">
-          {eyebrow}
-        </p>
+      <div className="section-title mb-14 max-w-4xl">
+        {/* SURTITRE AVEC LIGNE DE REPÈRE TECHNIQUE */}
+        <div className="mb-3 flex items-center gap-3">
+          <span className="h-1.5 w-1.5 rounded-sm bg-accent shadow-[0_0_8px_rgba(59,130,246,0.6)] shrink-0" />
 
-        <h2 className="section-heading text-3xl font-extrabold leading-tight tracking-[-0.025em] sm:text-4xl lg:text-5xl">
+          <p className="section-eyebrow font-mono text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] shrink-0">
+            {eyebrow}
+          </p>
+
+          <div className="h-[1px] flex-1 bg-gradient-to-r from-blue-500/35 via-slate-300/60 to-transparent dark:from-blue-400/35 dark:via-zinc-800 dark:to-transparent" />
+        </div>
+
+        <h2 className="section-heading text-2xl font-bold leading-snug tracking-tight sm:text-3xl lg:text-[2.2rem]">
           {title}
         </h2>
 
         {description && (
-          <p className="section-description mt-5 max-w-2xl text-base leading-7 sm:text-lg">
+          <p className="section-description mt-3.5 max-w-2xl text-base leading-relaxed sm:text-lg">
             {description}
           </p>
         )}
@@ -381,7 +432,7 @@ function ProfessionalCard({ project, index, language }) {
 
   return (
     <Reveal delay={index * 0.08} className="h-full">
-      <article className="professional-card group grid h-full overflow-hidden rounded-2xl border shadow-sm transition duration-500 hover:shadow-2xl lg:grid-cols-[0.95fr_1.05fr]">
+      <SpotlightCard as="article" className="professional-card group grid h-full overflow-hidden rounded-2xl border shadow-sm transition duration-500 hover:shadow-2xl lg:grid-cols-[0.95fr_1.05fr]">
 
         <div className="relative min-h-[320px] overflow-hidden lg:min-h-full">
           <ProjectImage
@@ -402,7 +453,7 @@ function ProfessionalCard({ project, index, language }) {
               {project.company}
             </div>
 
-            <div className="text-sm text-white/60">
+            <div className="font-mono text-xs text-white/70 tracking-tight">
               {project.period}
             </div>
           </div>
@@ -479,7 +530,7 @@ function ProfessionalCard({ project, index, language }) {
               {project.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="technology-pill rounded-lg border px-3 py-1.5 text-xs font-medium transition"
+                  className="technology-pill font-mono rounded-lg border px-3 py-1.5 text-xs font-medium transition"
                 >
                   {tech}
                 </span>
@@ -488,7 +539,7 @@ function ProfessionalCard({ project, index, language }) {
           </div>
 
         </div>
-      </article>
+      </SpotlightCard>
     </Reveal>
   );
 }
@@ -505,7 +556,7 @@ function AcademicCard({ project, index, language }) {
 
   return (
     <Reveal delay={index * 0.08} className="h-full">
-      <article className="academic-card group flex h-full flex-col overflow-hidden rounded-2xl text-white shadow-xl transition duration-500 hover:shadow-2xl">
+      <SpotlightCard as="article" className="academic-card group flex h-full flex-col overflow-hidden rounded-2xl text-white shadow-xl transition duration-500 hover:shadow-2xl">
 
         <div className="relative h-[260px] shrink-0 overflow-hidden sm:h-[280px]">
           <ProjectImage
@@ -581,7 +632,7 @@ function AcademicCard({ project, index, language }) {
               {project.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="academic-technology-pill rounded-lg border px-3 py-1.5 text-xs"
+                  className="academic-technology-pill font-mono rounded-lg border px-3 py-1.5 text-xs"
                 >
                   {tech}
                 </span>
@@ -590,7 +641,7 @@ function AcademicCard({ project, index, language }) {
           </div>
 
         </div>
-      </article>
+      </SpotlightCard>
     </Reveal>
   );
 }
@@ -626,6 +677,38 @@ function App() {
   });
 
   const isFrench = language === "fr";
+
+  /* SCROLL PROGRESS & BACK TO TOP */
+
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const [showBackToTop, setShowBackToTop] = React.useState(false);
+  const [copiedKey, setCopiedKey] = React.useState(null);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleCopy = (text, key) => {
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(text);
+      setCopiedKey(key);
+      setTimeout(() => setCopiedKey(null), 2200);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   /* LANGUE */
 
@@ -951,6 +1034,12 @@ function App() {
 
       <header className="navbar fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl">
 
+        {/* JAUGE DE PROGRESSION DE SCROLL (TELEMETRY SCROLL BAR) */}
+        <motion.div
+          className="absolute inset-x-0 bottom-0 h-[2px] origin-left bg-gradient-to-r from-blue-600 via-blue-500 to-sky-400"
+          style={{ scaleX }}
+        />
+
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
 
           <a
@@ -1143,8 +1232,8 @@ function App() {
 
               </div>
 
-              <div className="location mt-10 flex items-center gap-2 text-sm">
-                <MapPin size={16} />
+              <div className="location font-mono mt-10 flex items-center gap-2 text-xs sm:text-sm tracking-tight">
+                <MapPin size={16} className="text-accent" />
                 {t.hero.location}
               </div>
 
@@ -1154,11 +1243,11 @@ function App() {
 
             <Reveal delay={0.15}>
 
-              <div className="relative mx-auto w-full max-w-md">
+              <div className="relative mx-auto w-full max-w-lg">
 
                 <div className="absolute -inset-6 rounded-[2rem] bg-accent/8 blur-3xl" />
 
-                <div className="profile-frame relative aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl">
+                <div className="profile-frame relative w-full overflow-hidden rounded-2xl shadow-2xl">
 
                   <img
                     src={asset("/profile.jpg")}
@@ -1277,7 +1366,7 @@ function App() {
                     className="h-full"
                   >
 
-                    <article className="skill-card flex h-full flex-col rounded-2xl border p-7 transition duration-500">
+                    <SpotlightCard as="article" className="skill-card flex h-full flex-col rounded-2xl border p-7 transition duration-500">
 
                       {/* ICÔNE + NUMÉRO */}
 
@@ -1290,7 +1379,7 @@ function App() {
                           />
                         </div>
 
-                        <span className="pt-1 text-xs font-bold tracking-[0.18em] text-accent">
+                        <span className="font-mono pt-1 text-xs font-bold tracking-[0.18em] text-accent">
                           {String(index + 1).padStart(2, "0")}
                         </span>
 
@@ -1315,7 +1404,7 @@ function App() {
                         {group.items.map((item) => (
                           <span
                             key={item}
-                            className="technology-pill rounded-lg border px-3 py-1.5 text-xs font-medium transition hover:border-accent"
+                            className="technology-pill font-mono rounded-lg border px-3 py-1.5 text-xs font-medium transition hover:border-accent"
                           >
                             {item}
                           </span>
@@ -1333,7 +1422,7 @@ function App() {
 
                       </div>
 
-                    </article>
+                    </SpotlightCard>
 
                   </Reveal>
                 );
@@ -1366,9 +1455,9 @@ function App() {
 
               <Reveal className="h-full">
 
-                <div className="education-card flex h-full flex-col rounded-2xl border p-8 sm:p-10 transition duration-500">
+                <SpotlightCard className="education-card flex h-full flex-col rounded-2xl border p-8 sm:p-10 transition duration-500">
 
-                  <div className="education-year text-xs font-semibold uppercase tracking-[0.2em]">
+                  <div className="education-year font-mono text-xs font-semibold uppercase tracking-[0.18em]">
                     2023 — 2026
                   </div>
 
@@ -1384,7 +1473,7 @@ function App() {
                     {t.education.engineeringDescription}
                   </p>
 
-                </div>
+                </SpotlightCard>
 
               </Reveal>
 
@@ -1393,9 +1482,9 @@ function App() {
                 className="h-full"
               >
 
-                <div className="education-card flex h-full flex-col rounded-2xl border p-8 sm:p-10 transition duration-500">
+                <SpotlightCard className="education-card flex h-full flex-col rounded-2xl border p-8 sm:p-10 transition duration-500">
 
-                  <div className="education-year text-xs font-semibold uppercase tracking-[0.2em]">
+                  <div className="education-year font-mono text-xs font-semibold uppercase tracking-[0.18em]">
                     2021 — 2023
                   </div>
 
@@ -1411,7 +1500,7 @@ function App() {
                     {t.education.preparatoryDescription}
                   </p>
 
-                </div>
+                </SpotlightCard>
 
               </Reveal>
 
@@ -1436,15 +1525,21 @@ function App() {
 
               <div>
 
-                <p className="contact-eyebrow text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-                  {t.contact.eyebrow}
-                </p>
+                <div className="mb-3 flex items-center gap-3">
+                  <span className="h-1.5 w-1.5 rounded-sm bg-accent shadow-[0_0_8px_rgba(59,130,246,0.6)] shrink-0" />
 
-                <h2 className="mt-5 text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
+                  <p className="contact-eyebrow font-mono text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-accent shrink-0">
+                    {t.contact.eyebrow}
+                  </p>
+
+                  <div className="h-[1px] flex-1 bg-gradient-to-r from-blue-400/40 via-white/10 to-transparent" />
+                </div>
+
+                <h2 className="text-2xl font-bold tracking-tight sm:text-3xl lg:text-[2.2rem]">
                   {t.contact.title}
                 </h2>
 
-                <p className="contact-description mt-4 max-w-xl text-sm leading-6 sm:text-base">
+                <p className="contact-description mt-3.5 max-w-xl text-base leading-relaxed text-slate-300">
                   {t.contact.description}
                 </p>
 
@@ -1452,38 +1547,75 @@ function App() {
 
               <div className="grid content-center gap-3">
 
-                <a
-                  href="mailto:ahmedkamoun2002@gmail.com"
-                  className="contact-link flex items-center gap-4 rounded-xl border px-5 py-4 text-sm transition"
-                >
-                  <Mail
-                    size={19}
-                    className="shrink-0 text-accent"
-                  />
+                <div className="contact-link group flex items-center justify-between gap-3 rounded-xl border px-5 py-4 text-sm transition">
+                  <a
+                    href="mailto:ahmedkamoun2002@gmail.com"
+                    className="flex items-center gap-4 flex-1 truncate hover:text-white"
+                  >
+                    <Mail
+                      size={19}
+                      className="shrink-0 text-accent"
+                    />
 
-                  <span>
-                    ahmedkamoun2002@gmail.com
-                  </span>
+                    <span className="font-mono text-xs sm:text-sm tracking-tight truncate">
+                      ahmedkamoun2002@gmail.com
+                    </span>
+                  </a>
 
-                  <ExternalLink
-                    size={14}
-                    className="ml-auto shrink-0 opacity-40"
-                  />
-                </a>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy("ahmedkamoun2002@gmail.com", "email")}
+                    className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-mono text-slate-300 transition hover:bg-white/10 hover:text-white shrink-0"
+                    title={isFrench ? "Copier l'email" : "Copy email"}
+                  >
+                    {copiedKey === "email" ? (
+                      <>
+                        <Check size={13} className="text-emerald-400" />
+                        <span className="text-emerald-400 font-semibold">{isFrench ? "Copié !" : "Copied!"}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={13} className="opacity-60" />
+                        <span className="opacity-75">{isFrench ? "Copier" : "Copy"}</span>
+                      </>
+                    )}
+                  </button>
+                </div>
 
-                <a
-                  href="tel:+21656162611"
-                  className="contact-link flex items-center gap-4 rounded-xl border px-5 py-4 text-sm transition"
-                >
-                  <Phone
-                    size={19}
-                    className="shrink-0 text-accent"
-                  />
+                <div className="contact-link group flex items-center justify-between gap-3 rounded-xl border px-5 py-4 text-sm transition">
+                  <a
+                    href="tel:+21656162611"
+                    className="flex items-center gap-4 flex-1 truncate hover:text-white"
+                  >
+                    <Phone
+                      size={19}
+                      className="shrink-0 text-accent"
+                    />
 
-                  <span>
-                    +216 56 162 611
-                  </span>
-                </a>
+                    <span className="font-mono text-xs sm:text-sm tracking-tight">
+                      +216 56 162 611
+                    </span>
+                  </a>
+
+                  <button
+                    type="button"
+                    onClick={() => handleCopy("+21656162611", "phone")}
+                    className="ml-auto inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-mono text-slate-300 transition hover:bg-white/10 hover:text-white shrink-0"
+                    title={isFrench ? "Copier le numéro" : "Copy number"}
+                  >
+                    {copiedKey === "phone" ? (
+                      <>
+                        <Check size={13} className="text-emerald-400" />
+                        <span className="text-emerald-400 font-semibold">{isFrench ? "Copié !" : "Copied!"}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={13} className="opacity-60" />
+                        <span className="opacity-75">{isFrench ? "Copier" : "Copy"}</span>
+                      </>
+                    )}
+                  </button>
+                </div>
 
                 <a
                   href="https://www.linkedin.com/in/ahmed-kammoun-b79196308"
@@ -1496,7 +1628,7 @@ function App() {
                     className="shrink-0 text-accent"
                   />
 
-                  <span>
+                  <span className="font-mono text-xs sm:text-sm tracking-tight">
                     LinkedIn
                   </span>
 
@@ -1517,7 +1649,7 @@ function App() {
                     className="shrink-0 text-accent"
                   />
 
-                  <span>
+                  <span className="font-mono text-xs sm:text-sm tracking-tight">
                     GitHub
                   </span>
 
@@ -1544,6 +1676,25 @@ function App() {
       <footer className="footer border-t px-6 py-10 text-center text-xs tracking-wide">
         {t.footer}
       </footer>
+
+      {/* BOUTON RETOUR EN HAUT (BACK TO TOP) */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            type="button"
+            onClick={scrollToTop}
+            initial={{ opacity: 0, scale: 0.8, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 12 }}
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-7 right-7 z-40 grid h-11 w-11 place-items-center rounded-xl border border-slate-200/80 bg-white/90 text-slate-700 shadow-lg backdrop-blur-md transition-colors hover:border-blue-500 hover:text-blue-600 dark:border-white/10 dark:bg-zinc-900/90 dark:text-zinc-200 dark:hover:border-blue-400 dark:hover:text-blue-400"
+            aria-label={isFrench ? "Retour en haut" : "Back to top"}
+            title={isFrench ? "Retour en haut" : "Back to top"}
+          >
+            <ArrowUp size={18} strokeWidth={2.4} />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
     </div>
   );
