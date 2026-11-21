@@ -359,6 +359,145 @@ function SpotlightCard({ children, className = "", as = "div", ...props }) {
 }
 
 /* ================================================================
+   PISTES DE CIRCUIT IMPRIMÉ LATÉRALES (PCB TRACES)
+================================================================ */
+
+function PcbSideDecorations() {
+  return (
+    <div className="pointer-events-none fixed inset-0 z-0 hidden xl:block overflow-hidden">
+      {/* MARGE GAUCHE */}
+      <div className="absolute left-0 top-0 bottom-0 w-32 2xl:w-44 opacity-25 dark:opacity-35 transition-opacity duration-500">
+        <svg
+          className="h-full w-full text-blue-500 dark:text-blue-400"
+          viewBox="0 0 160 1000"
+          preserveAspectRatio="none"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* BUS DE PISTES 45° */}
+          <path
+            d="M 20 0 L 20 180 L 55 215 L 55 380 L 25 410 L 25 620 L 70 665 L 70 850 L 40 880 L 40 1000"
+            stroke="currentColor"
+            strokeWidth="1.2"
+          />
+          <path
+            d="M 38 0 L 38 170 L 73 205 L 73 370 L 43 400 L 43 610 L 88 655 L 88 840 L 58 870 L 58 1000"
+            stroke="currentColor"
+            strokeWidth="1.2"
+          />
+          <path
+            d="M 56 60 L 56 160 L 91 195 L 91 320 L 125 354 L 125 500 L 95 530 L 95 720 L 120 745 L 120 890"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeOpacity="0.6"
+          />
+          <path
+            d="M 5 280 L 35 280 L 60 305 L 60 480 L 20 520 L 20 760 L 45 785 L 45 950"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            strokeOpacity="0.5"
+          />
+
+          {/* VIAS (PASTILLES DE TRAVERSÉE MÉTALLISÉES) */}
+          <circle cx="55" cy="215" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
+          <circle cx="55" cy="215" r="1.5" fill="currentColor" />
+
+          <circle cx="73" cy="370" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
+          <circle cx="73" cy="370" r="1.5" fill="currentColor" />
+
+          <circle cx="125" cy="500" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
+          <circle cx="125" cy="500" r="1.5" fill="currentColor" />
+
+          <circle cx="70" cy="665" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
+          <circle cx="70" cy="665" r="1.5" fill="currentColor" />
+
+          <circle cx="88" cy="840" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
+          <circle cx="88" cy="840" r="1.5" fill="currentColor" />
+
+          {/* TEST POINTS SMD PADS */}
+          <rect x="18" y="260" width="7" height="4" rx="0.8" fill="currentColor" fillOpacity="0.7" />
+          <rect x="18" y="270" width="7" height="4" rx="0.8" fill="currentColor" fillOpacity="0.7" />
+          <rect x="18" y="280" width="7" height="4" rx="0.8" fill="currentColor" fillOpacity="0.7" />
+
+          <rect x="68" y="580" width="8" height="4" rx="0.8" fill="currentColor" fillOpacity="0.7" />
+          <rect x="68" y="590" width="8" height="4" rx="0.8" fill="currentColor" fillOpacity="0.7" />
+
+          {/* LABELS TECHNIQUES PCB */}
+          <text x="24" y="100" fill="currentColor" fillOpacity="0.45" fontSize="8" fontFamily="monospace" letterSpacing="0.1em">CAN_H</text>
+          <text x="42" y="130" fill="currentColor" fillOpacity="0.45" fontSize="8" fontFamily="monospace" letterSpacing="0.1em">CAN_L</text>
+          <text x="60" y="240" fill="currentColor" fillOpacity="0.4" fontSize="7" fontFamily="monospace">RL78//TX</text>
+          <text x="75" y="700" fill="currentColor" fillOpacity="0.4" fontSize="7" fontFamily="monospace">J1939</text>
+        </svg>
+      </div>
+
+      {/* MARGE DROITE */}
+      <div className="absolute right-0 top-0 bottom-0 w-32 2xl:w-44 opacity-25 dark:opacity-35 transition-opacity duration-500">
+        <svg
+          className="h-full w-full text-blue-500 dark:text-blue-400"
+          viewBox="0 0 160 1000"
+          preserveAspectRatio="none"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* BUS DE PISTES 45° */}
+          <path
+            d="M 140 0 L 140 160 L 105 195 L 105 390 L 135 420 L 135 640 L 90 685 L 90 830 L 120 860 L 120 1000"
+            stroke="currentColor"
+            strokeWidth="1.2"
+          />
+          <path
+            d="M 122 0 L 122 150 L 87 185 L 87 380 L 117 410 L 117 630 L 72 675 L 72 820 L 102 850 L 102 1000"
+            stroke="currentColor"
+            strokeWidth="1.2"
+          />
+          <path
+            d="M 104 80 L 104 140 L 69 175 L 69 330 L 35 364 L 35 520 L 65 550 L 65 710 L 40 735 L 40 910"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeOpacity="0.6"
+          />
+          <path
+            d="M 155 260 L 125 260 L 100 285 L 100 460 L 140 500 L 140 780 L 115 805 L 115 970"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            strokeOpacity="0.5"
+          />
+
+          {/* VIAS */}
+          <circle cx="105" cy="195" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
+          <circle cx="105" cy="195" r="1.5" fill="currentColor" />
+
+          <circle cx="87" cy="380" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
+          <circle cx="87" cy="380" r="1.5" fill="currentColor" />
+
+          <circle cx="35" cy="520" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
+          <circle cx="35" cy="520" r="1.5" fill="currentColor" />
+
+          <circle cx="90" cy="685" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
+          <circle cx="90" cy="685" r="1.5" fill="currentColor" />
+
+          <circle cx="72" cy="820" r="4" stroke="currentColor" strokeWidth="1.2" fill="currentColor" fillOpacity="0.2" />
+          <circle cx="72" cy="820" r="1.5" fill="currentColor" />
+
+          {/* TEST POINTS SMD PADS */}
+          <rect x="135" y="240" width="7" height="4" rx="0.8" fill="currentColor" fillOpacity="0.7" />
+          <rect x="135" y="250" width="7" height="4" rx="0.8" fill="currentColor" fillOpacity="0.7" />
+
+          <rect x="85" y="560" width="8" height="4" rx="0.8" fill="currentColor" fillOpacity="0.7" />
+          <rect x="85" y="570" width="8" height="4" rx="0.8" fill="currentColor" fillOpacity="0.7" />
+
+          {/* LABELS TECHNIQUES PCB */}
+          <text x="96" y="90" fill="currentColor" fillOpacity="0.45" fontSize="8" fontFamily="monospace" letterSpacing="0.1em">I2C_SDA</text>
+          <text x="114" y="120" fill="currentColor" fillOpacity="0.45" fontSize="8" fontFamily="monospace" letterSpacing="0.1em">I2C_SCL</text>
+          <text x="40" y="230" fill="currentColor" fillOpacity="0.4" fontSize="7" fontFamily="monospace">RTOS_CLK</text>
+          <text x="50" y="690" fill="currentColor" fillOpacity="0.4" fontSize="7" fontFamily="monospace">ESP32_C6</text>
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+/* ================================================================
    TITRE DE SECTION
 ================================================================ */
 
@@ -1026,7 +1165,10 @@ function App() {
   ];
 
   return (
-    <div className="site min-h-screen antialiased">
+    <div className="site min-h-screen antialiased relative">
+
+      {/* DÉCORATION DE PISTES PCB LATÉRALES SUR GRANDS ÉCRANS */}
+      <PcbSideDecorations />
 
       {/* ==========================================================
           NAVBAR
